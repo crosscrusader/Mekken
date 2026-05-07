@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cmvs6k2aypoej"]
+
+[ext_resource type="Script" uid="uid://ch4tm80o6mw6i" path="res://scripts/input_display.gd" id="1_yeob7"]
+
+[node name="Input_Handler" type="Label" unique_id=55638723]
+offset_right = 140.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "test"
+script = ExtResource("1_yeob7")

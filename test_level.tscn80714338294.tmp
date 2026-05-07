@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://ds12er85y8nmy"]
+
+[ext_resource type="Script" uid="uid://jxap8u1pwaxn" path="res://scripts/player.gd" id="1_1c2mv"]
+[ext_resource type="Texture2D" uid="uid://cna5vwxpp24n1" path="res://textures/Checkerboard_pattern.png" id="1_6emce"]
+[ext_resource type="PackedScene" uid="uid://78r1susxpb3" path="res://models/alpha_proto_v_2.scn" id="3_gbhdq"]
+[ext_resource type="Script" uid="uid://b7chmk8n4lt7i" path="res://scripts/camera_movement.gd" id="5_gbhdq"]
+[ext_resource type="Script" uid="uid://cyajvsgtbb0bo" path="res://models/cpu_controller.gd" id="5_sb12i"]
+[ext_resource type="PackedScene" uid="uid://cmvs6k2aypoej" path="res://Input_Handler.tscn" id="8_lnbra"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lowby"]
+albedo_texture = ExtResource("1_6emce")
+uv1_scale = Vector3(61.3, 61.3, 61.3)
+uv1_triplanar_sharpness = 0.091505356
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gojnm"]
+size = Vector3(0.415, 1.83, 0.165)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1c2mv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sb12i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y646j"]
+albedo_color = Color(0.20151493, 0.35770553, 0.73150086, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_gbhdq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnbra"]
+albedo_color = Color(1, 0.21960784, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gbhdq"]
+
+[node name="Main" type="Node3D" unique_id=118538135]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1566434831]
+transform = Transform3D(295.42932, -0.0064538503, 0.6101836, 1.9061422, 0.99997896, 0.11897093, -0.9325883, -0.00059434335, 193.53984, 0, -0.0144946575, 0)
+material_override = SubResource("StandardMaterial3D_lowby")
+use_collision = true
+size = Vector3(0.3400879, 1, 0.47558594)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=710327721]
+transform = Transform3D(0.5837402, 0.74875456, -0.31402907, 0.17111999, 0.26462483, 0.9490478, 0.79370385, -0.60773396, 0.026345283, 0, 103.09282, 0)
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=2033413521]
+script = ExtResource("1_1c2mv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1038517071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5597711, 0)
+shape = SubResource("BoxShape3D_gojnm")
+
+[node name="alpha_proto_v2" parent="Player" unique_id=1857129023 instance=ExtResource("3_gbhdq")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.5785327, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=285350613]
+transform = Transform3D(-0.015020226, 0.46478024, -0.88529867, 0.007884458, 0.8854261, 0.4647133, 0.9998561, -1.727807e-09, -0.01696384, -6.482837, 5.6680527, 2.0574646)
+script = ExtResource("5_gbhdq")
+
+[node name="Opponent" type="CharacterBody3D" parent="." unique_id=330077582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5821486, 3.7064)
+script = ExtResource("5_sb12i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Opponent" unique_id=726611680]
+mesh = SubResource("CapsuleMesh_1c2mv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Opponent" unique_id=1120090787]
+shape = SubResource("CapsuleShape3D_sb12i")
+
+[node name="Marker2" type="StaticBody3D" parent="." unique_id=758764797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4376907, 0, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marker2" unique_id=1178127001]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 0.7251675, 0)
+material_overlay = SubResource("StandardMaterial3D_y646j")
+mesh = SubResource("PrismMesh_gbhdq")
+surface_material_override/0 = SubResource("StandardMaterial3D_lnbra")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marker2" unique_id=1824268821]
+shape = SubResource("CylinderShape3D_gbhdq")
+disabled = true
+
+[node name="Marker1" type="StaticBody3D" parent="." unique_id=1328159521]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marker1" unique_id=1930373427]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.7251675, 0)
+material_overlay = SubResource("StandardMaterial3D_y646j")
+mesh = SubResource("PrismMesh_gbhdq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marker1" unique_id=1142010420]
+shape = SubResource("CylinderShape3D_gbhdq")
+disabled = true
+
+[node name="Input_Handler" parent="." unique_id=839960057 instance=ExtResource("8_lnbra")]
+offset_left = 37.0
+offset_top = 25.0
+offset_right = 187.0
+offset_bottom = 85.0
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 64
+text = "Hehe hoohoo"
